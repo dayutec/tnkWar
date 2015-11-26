@@ -1,0 +1,3 @@
+intial value is 18
+intial sex is Female
+infor:this is Femalechild, and age is 18
