@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -22,7 +24,7 @@ public class tankClinet extends Frame {
 		g.fillOval(tank_x, tank_y, 30, 30);
 		g.setColor(c);
 		
-		tank_y += 5; //tanks_y
+		//tank_y += 5; //tanks_y
 	}
 	
 	
@@ -63,7 +65,7 @@ public class tankClinet extends Frame {
 		this.setResizable(false);
 		this.setBackground(Color.GRAY);
 		setVisible(true);
-		
+		this.addKeyListener(new KeyMonitor());
 		new Thread( new PaintThread()).start();
 	}
 	
@@ -95,6 +97,27 @@ public class tankClinet extends Frame {
 		
 	}
 	
-	
+	private class KeyMonitor extends KeyAdapter{
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			super.keyPressed(e);
+			System.out.println("ok");
+			int key = e.getKeyCode();
+			switch (key){
+				case KeyEvent.VK_RIGHT : tank_x+=50; break;
+				case KeyEvent.VK_LEFT  : tank_x-=50; break;
+				case KeyEvent.VK_UP    : tank_y-=50; break;
+				case KeyEvent.VK_DOWN  : tank_y+=50; break;
+				
+				default :break;
+			}
+			
+			
+			
+		}
+		
+	}
 
 }
