@@ -9,6 +9,8 @@ import java.awt.event.WindowEvent;
 
 public class tankClinet extends Frame {
 
+	public static final int WIN_SIZE_WIDTH =800;
+	public static final int WIN_SIZE_HEIGHT =600;
 	int tank_x=50, tank_y=50;
 	
 	Image offScreenImage = null;
@@ -29,13 +31,13 @@ public class tankClinet extends Frame {
 		// TODO Auto-generated method stub
 		super.update(g);
 		if(offScreenImage == null){
-			offScreenImage = this.createImage(800,600);
+			offScreenImage = this.createImage(WIN_SIZE_WIDTH,WIN_SIZE_HEIGHT);
 		}
 		Graphics gOffScreen = offScreenImage.getGraphics();
 		
 		Color c = gOffScreen.getColor();
 		gOffScreen.setColor(Color.GREEN);
-		gOffScreen.fillRect(0, 0, 800, 600);
+		gOffScreen.fillRect(0, 0, WIN_SIZE_WIDTH, WIN_SIZE_HEIGHT);
 		gOffScreen.setColor(c);
 		
 		paint(gOffScreen);
@@ -46,7 +48,7 @@ public class tankClinet extends Frame {
 	
 	public void lauchFrame(){
 		this.setLocation(200,50);
-		this.setSize(800, 600);
+		this.setSize(WIN_SIZE_WIDTH, WIN_SIZE_HEIGHT);
 		this.setTitle("TankWar");
 		
 		this.addWindowListener(new WindowAdapter(){
