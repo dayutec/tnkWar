@@ -13,18 +13,22 @@ public class tankClinet extends Frame {
 
 	public static final int WIN_SIZE_WIDTH =800;
 	public static final int WIN_SIZE_HEIGHT =600;
-	int tank_x=50, tank_y=50;
+	//int tank_x=50, tank_y=50;
+	
+	Tank myTank = new Tank(50,50);
 	
 	Image offScreenImage = null;
 
 
 	public void paint(Graphics g){
-		Color c = g.getColor();
-		g.setColor(Color.RED);
-		g.fillOval(tank_x, tank_y, 30, 30);
-		g.setColor(c);
-		
-		//tank_y += 5; //tanks_y
+	//	Color c = g.getColor();
+	//	g.setColor(Color.RED);
+	//  g.fillOval(tank_x, tank_y, 30, 30);
+	//	g.setColor(c);
+	
+	//  tank_y += 5; //tanks_y
+	
+		myTank.draw(g);
 	}
 	
 	
@@ -104,15 +108,7 @@ public class tankClinet extends Frame {
 			// TODO Auto-generated method stub
 			super.keyPressed(e);
 			System.out.println("ok");
-			int key = e.getKeyCode();
-			switch (key){
-				case KeyEvent.VK_RIGHT : tank_x+=50; break;
-				case KeyEvent.VK_LEFT  : tank_x-=50; break;
-				case KeyEvent.VK_UP    : tank_y-=50; break;
-				case KeyEvent.VK_DOWN  : tank_y+=50; break;
-				
-				default :break;
-			}
+			myTank.keypress(e);
 			
 			
 			
