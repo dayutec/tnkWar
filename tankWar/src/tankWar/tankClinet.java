@@ -8,17 +8,22 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+
 
 public class tankClinet extends Frame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	public static final int WIN_SIZE_WIDTH =800;
 	public static final int WIN_SIZE_HEIGHT =600;
 	//int tank_x=50, tank_y=50;
 	
-	Tank myTank = new Tank(50,50);
-	Bullet b = new Bullet(50,50,Tank.Direction.R);
+	Tank myTank = new Tank(50,50,this);
+	Bullet b = null;
 	Image offScreenImage = null;
 
 
@@ -31,7 +36,7 @@ public class tankClinet extends Frame {
 	//  tank_y += 5; //tanks_y
 	
 		myTank.draw(g);
-		b.draw(g);
+		if(b!=null)	b.draw(g);
 		
 	}
 	

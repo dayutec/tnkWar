@@ -10,8 +10,13 @@ public class Bullet {
 	public static final int XSPEED = 10;
 	public static final int YSPEED = 10;
 	
+	public static final int WIDTH=5;
+	public static final int HEIGHT=5;
+	
 	int bullit_x,bullit_y;
 	Tank.Direction dir;
+	
+	
 	
 	
 	public Bullet(int x, int y, Direction dir) {
@@ -26,14 +31,14 @@ public class Bullet {
 		
 		Color c = g.getColor();
 		g.setColor(Color.BLACK);
-		g.fillOval(bullit_x, bullit_y, 5, 5);
+		g.fillOval(bullit_x, bullit_y, WIDTH, HEIGHT);
 		g.setColor(c);
 		
-		fire();
+		move();
 	}
 	
 	
-	public void fire(){
+	public void move(){
 		
 		
 		switch (dir){

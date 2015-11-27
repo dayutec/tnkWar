@@ -9,11 +9,15 @@ public class Tank {
 	public static final int XSPEED=5;
 	public static final int YSPEED=5;
 	
+	public static final int WIDTH=30;
+	public static final int HEIGHT=30;
+	
+	tankClinet tc =null;
 	private int loc_x,loc_y;
-	private int bullit_x=50,bullit_y=50;
+
 	
 	private boolean bL= false ,bU =false, bD= false, bR=false;
-	private boolean bFire =false;
+
 	
 	enum Direction{L,LU,U,RU,R,RD,D,LD,S};
 	private Direction dir = Direction.S;
@@ -25,10 +29,20 @@ public class Tank {
 		
 	}
 	
+
+	public Tank(int loc_x, int loc_y, tankClinet tc) {
+		
+		this(loc_x,loc_y);
+		this.tc =tc;
+		
+	}
+	
+	
+	
 	public void draw(Graphics g){
 		Color c = g.getColor();
 		g.setColor(Color.RED);
-		g.fillOval(loc_x, loc_y, 30, 30);
+		g.fillOval(loc_x, loc_y, WIDTH, HEIGHT);
 		g.setColor(c);
 		
 		move();
@@ -62,13 +76,22 @@ public class Tank {
 			case KeyEvent.VK_LEFT  : bL = true; break;
 			case KeyEvent.VK_UP    : bU = true; break;
 			case KeyEvent.VK_DOWN  : bD = true; break;
-			case KeyEvent.VK_SPACE : bFire = true;break; 
+			case KeyEvent.VK_SPACE : tc.b=fire();break; 
 			default :break;
 		}
 		
 		locateDirection();
 	} 
 	
+
+	private Bullet fire() {
+		
+		int loc_x= this.loc_x + WIDTH/2 - Bullet.WIDTH;
+		int loc_y= this.loc_y + HEIGHT/2 - Bullet.HEIGHT;
+		
+		Bullet b = new Bullet(loc_x,loc_y,dir);
+		return b;
+	}
 
 	public void keyRelease(KeyEvent e) {
 		// TODO Auto-generated method stub
