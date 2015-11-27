@@ -10,15 +10,19 @@ public class Tank {
 	public static final int YSPEED=5;
 	
 	private int loc_x,loc_y;
-	private boolean bL= false ,bU =false, bD= false, bR=false;
+	private int bullit_x=50,bullit_y=50;
 	
-	private enum Direction{L,LU,U,RU,R,RD,D,LD,S};
+	private boolean bL= false ,bU =false, bD= false, bR=false;
+	private boolean bFire =false;
+	
+	enum Direction{L,LU,U,RU,R,RD,D,LD,S};
 	private Direction dir = Direction.S;
 
 	public Tank(int loc_x, int loc_y) {
 		super();
 		this.loc_x = loc_x;
 		this.loc_y = loc_y;
+		
 	}
 	
 	public void draw(Graphics g){
@@ -28,7 +32,12 @@ public class Tank {
 		g.setColor(c);
 		
 		move();
+		
 	}
+	
+	
+
+	
 	
 	
 	public void move(){
@@ -53,7 +62,7 @@ public class Tank {
 			case KeyEvent.VK_LEFT  : bL = true; break;
 			case KeyEvent.VK_UP    : bU = true; break;
 			case KeyEvent.VK_DOWN  : bD = true; break;
-			
+			case KeyEvent.VK_SPACE : bFire = true;break; 
 			default :break;
 		}
 		
@@ -69,6 +78,7 @@ public class Tank {
 			case KeyEvent.VK_LEFT  : bL = false; break;
 			case KeyEvent.VK_UP    : bU = false; break;
 			case KeyEvent.VK_DOWN  : bD = false; break;
+	//		case KeyEvent.VK_SPACE : bFire = false;break;
 			default :break;
 		}
 		

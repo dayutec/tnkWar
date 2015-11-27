@@ -18,7 +18,7 @@ public class tankClinet extends Frame {
 	//int tank_x=50, tank_y=50;
 	
 	Tank myTank = new Tank(50,50);
-	
+	Bullet b = new Bullet(50,50,Tank.Direction.R);
 	Image offScreenImage = null;
 
 
@@ -31,6 +31,8 @@ public class tankClinet extends Frame {
 	//  tank_y += 5; //tanks_y
 	
 		myTank.draw(g);
+		b.draw(g);
+		
 	}
 	
 	
@@ -44,7 +46,7 @@ public class tankClinet extends Frame {
 		Graphics gOffScreen = offScreenImage.getGraphics();
 		
 		Color c = gOffScreen.getColor();
-		gOffScreen.setColor(Color.GREEN);
+		gOffScreen.setColor(Color.GRAY);
 		gOffScreen.fillRect(0, 0, WIN_SIZE_WIDTH, WIN_SIZE_HEIGHT);
 		gOffScreen.setColor(c);
 		
@@ -109,7 +111,7 @@ public class tankClinet extends Frame {
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
 			super.keyPressed(e);
-			System.out.println("ok");
+		//	System.out.println("ok");
 			myTank.keypress(e);
 			
 		}
