@@ -21,6 +21,8 @@ public class Tank {
 	
 	enum Direction{L,LU,U,RU,R,RD,D,LD,S};
 	private Direction dir = Direction.S;
+	private Direction gunDir = Direction.R;
+	
 
 	public Tank(int loc_x, int loc_y) {
 		super();
@@ -45,12 +47,49 @@ public class Tank {
 		g.fillOval(loc_x, loc_y, WIDTH, HEIGHT);
 		g.setColor(c);
 		
+		gunMove(g);
 		move();
 		
 	}
 	
 	
-
+	public void gunMove(Graphics g){
+		
+		int x =Tank.WIDTH/2;
+		int y =Tank.HEIGHT/2;
+		int xEx=10;
+		int yEx=10;
+		
+		switch (gunDir){
+		case L: 	
+			g.drawLine(loc_x+x, loc_y+y, loc_x-xEx, loc_y);
+			break;
+		case LU:
+			g.drawLine(loc_x+x, loc_y+y, loc_y-xEx, loc_y-yEx);
+			break;
+		case U: 
+			g.drawLine(loc_x+x, loc_y+y, loc_x, loc_y-yEx);
+			break;
+		case RU:
+			g.drawLine(loc_x+x, loc_y+y, loc_x+xEx, loc_y-yEx);
+			break;
+		case R: 
+			g.drawLine(loc_x+x, loc_y+y, loc_x+xEx, loc_y);
+			break;
+		case RD:
+			g.drawLine(loc_x+x, loc_y+y, loc_x+xEx, loc_y+yEx);
+			break;	
+		case D: 
+			g.drawLine(loc_x+x, loc_y+y, loc_x, loc_y+yEx);
+			break;
+		case LD:
+			g.drawLine(loc_x+x, loc_y+y, loc_x-xEx, loc_y+yEx);
+			break;
+		case S: 
+			break;
+		default : break;
+		}
+	}
 	
 	
 	
@@ -66,6 +105,10 @@ public class Tank {
 		case LD:loc_x-=XSPEED; loc_y+=YSPEED;break;
 		case S: break;
 			default : break;
+		}
+		
+		if(this.dir!= Direction.S){
+			this.gunDir = dir;
 		}
 	}
 	
