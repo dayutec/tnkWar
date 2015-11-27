@@ -112,8 +112,13 @@ public class tankClinet extends Frame {
 			System.out.println("ok");
 			myTank.keypress(e);
 			
-			
-			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			super.keyReleased(e);
+			myTank.keyRelease(e);
 		}
 		
 	}
