@@ -13,6 +13,10 @@ public class Tank {
 	public static final int HEIGHT=30;
 	
 	tankClinet tc =null;
+	
+	
+	private boolean enemyTank =false;
+	
 	private int loc_x,loc_y;
 
 	
@@ -24,17 +28,18 @@ public class Tank {
 	private Direction gunDir = Direction.R;
 	
 
-	public Tank(int loc_x, int loc_y) {
+	public Tank(int loc_x, int loc_y, boolean eT) {
 		super();
 		this.loc_x = loc_x;
 		this.loc_y = loc_y;
+		this.enemyTank =eT;
 		
 	}
 	
 
-	public Tank(int loc_x, int loc_y, tankClinet tc) {
+	public Tank(int loc_x, int loc_y, boolean eT, tankClinet tc) {
 		
-		this(loc_x,loc_y);
+		this(loc_x,loc_y,eT);
 		this.tc =tc;
 		
 	}
@@ -43,7 +48,10 @@ public class Tank {
 	
 	public void draw(Graphics g){
 		Color c = g.getColor();
-		g.setColor(Color.RED);
+		if(enemyTank)
+			g.setColor(Color.BLUE);
+		else
+			g.setColor(Color.RED);
 		g.fillOval(loc_x, loc_y, WIDTH, HEIGHT);
 		g.setColor(c);
 		

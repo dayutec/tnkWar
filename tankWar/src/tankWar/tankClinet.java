@@ -21,9 +21,13 @@ public class tankClinet extends Frame {
 	
 	public static final int WIN_SIZE_WIDTH =800;
 	public static final int WIN_SIZE_HEIGHT =600;
+	
+	public static final boolean FriendTank =true;
+	public static final boolean EnemyTank =true;
 	//int tank_x=50, tank_y=50;
 	
-	Tank myTank = new Tank(50,50,this);
+	Tank myTank = new Tank(50,50,FriendTank ,this);
+	Tank antiTank = new Tank(100,50,EnemyTank ,this);
 //	Bullet b = null;
 	
 	List<Bullet> bullets  = new ArrayList<Bullet>();
@@ -42,6 +46,7 @@ public class tankClinet extends Frame {
 		g.drawString("bullets acount " +bullets.size(), 60, 60);
 	
 		myTank.draw(g);
+		antiTank.draw(g);
 	//	if(b!=null)	b.draw(g);
 		
 		for(int i=0; i< bullets.size() ;i++){
