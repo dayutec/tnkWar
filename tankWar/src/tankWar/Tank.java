@@ -138,7 +138,7 @@ public class Tank {
 		int loc_x= this.loc_x + WIDTH/2 - Bullet.WIDTH;
 		int loc_y= this.loc_y + HEIGHT/2 - Bullet.HEIGHT;
 		
-		Bullet b = new Bullet(loc_x,loc_y,gunDir);
+		Bullet b = new Bullet(loc_x,loc_y,gunDir,this.tc);
 		tc.bullets.add(b);
 		
 		return b;

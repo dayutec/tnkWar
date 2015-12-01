@@ -7,6 +7,10 @@ import tankWar.Tank.Direction;
 
 public class Bullet {
 
+	
+	public static final int XBase = 0;
+	public static final int YBase = 0;
+	
 	public static final int XSPEED = 10;
 	public static final int YSPEED = 10;
 	
@@ -16,15 +20,26 @@ public class Bullet {
 	int bullit_x,bullit_y;
 	Tank.Direction dir;
 	
+	private boolean BulletLive = true;
+	private tankClinet tc;
 	
 	
-	
+	public boolean isBulletLive() {
+		return BulletLive;
+	}
+
 	public Bullet(int x, int y, Direction dir) {
 		super();
 		this.bullit_x = x;
 		this.bullit_y = y;
 		this.dir = dir;
 	}
+	
+	public Bullet(int x, int y, Direction dir,tankClinet tc) {
+		this(x,y,dir);
+		this.tc = tc;
+	}
+	
 	
 	public void draw(Graphics g){
 		
@@ -54,6 +69,10 @@ public class Bullet {
 			default : break;
 		}
 		
+		if(bullit_x < XBase ||bullit_y < YBase || bullit_x > tankClinet.WIN_SIZE_WIDTH || bullit_y > tankClinet.WIN_SIZE_HEIGHT ){
+			BulletLive =false ;
+			tc.bullets.remove(this);
+		}
 		
 	   
 }
