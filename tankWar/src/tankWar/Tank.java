@@ -124,7 +124,8 @@ public class Tank {
 			case KeyEvent.VK_LEFT  : bL = true; break;
 			case KeyEvent.VK_UP    : bU = true; break;
 			case KeyEvent.VK_DOWN  : bD = true; break;
-			case KeyEvent.VK_SPACE : tc.b=fire();break; 
+			//case KeyEvent.VK_SPACE : tc.b=fire();break; 
+		//	case KeyEvent.VK_SPACE : fire();break; 
 			default :break;
 		}
 		
@@ -138,6 +139,8 @@ public class Tank {
 		int loc_y= this.loc_y + HEIGHT/2 - Bullet.HEIGHT;
 		
 		Bullet b = new Bullet(loc_x,loc_y,gunDir);
+		tc.bullets.add(b);
+		
 		return b;
 	}
 
@@ -149,7 +152,7 @@ public class Tank {
 			case KeyEvent.VK_LEFT  : bL = false; break;
 			case KeyEvent.VK_UP    : bU = false; break;
 			case KeyEvent.VK_DOWN  : bD = false; break;
-	//		case KeyEvent.VK_SPACE : bFire = false;break;
+			case KeyEvent.VK_SPACE : fire() ;break;
 			default :break;
 		}
 		

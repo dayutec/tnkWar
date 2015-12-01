@@ -8,7 +8,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
+import java.util.List;
+import java.util.ArrayList;
 
 public class tankClinet extends Frame {
 
@@ -23,7 +24,10 @@ public class tankClinet extends Frame {
 	//int tank_x=50, tank_y=50;
 	
 	Tank myTank = new Tank(50,50,this);
-	Bullet b = null;
+//	Bullet b = null;
+	
+	List<Bullet> bullets  = new ArrayList<Bullet>();
+	
 	Image offScreenImage = null;
 
 
@@ -34,9 +38,16 @@ public class tankClinet extends Frame {
 	//	g.setColor(c);
 	
 	//  tank_y += 5; //tanks_y
+		
+		g.drawString("bullets acount " +bullets.size(), 60, 60);
 	
 		myTank.draw(g);
-		if(b!=null)	b.draw(g);
+	//	if(b!=null)	b.draw(g);
+		
+		for(int i=0; i< bullets.size() ;i++){
+			Bullet b = bullets.get(i);
+			b.draw(g);
+		}
 		
 	}
 	
