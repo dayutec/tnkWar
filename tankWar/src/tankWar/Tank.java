@@ -115,6 +115,13 @@ public class Tank {
 		if(this.dir!= Direction.S){
 			this.gunDir = dir;
 		}
+		
+		
+		if(loc_x <0) loc_x=0;
+		if(loc_y <30) loc_y= 30;
+		if(loc_x + Tank.WIDTH > tankClinet.WIN_SIZE_WIDTH) loc_x = tankClinet.WIN_SIZE_WIDTH -Tank.WIDTH;
+		if(loc_y + Tank.HEIGHT> tankClinet.WIN_SIZE_HEIGHT) loc_y = tankClinet.WIN_SIZE_HEIGHT -Tank.HEIGHT;
+		
 	}
 	
 	public void keypress(KeyEvent e){
