@@ -57,33 +57,38 @@ public class Tank {
 		
 		int x =Tank.WIDTH/2;
 		int y =Tank.HEIGHT/2;
-		int xEx=10;
-		int yEx=10;
+		int xEx=16;
+		int yEx=16;
+		
+		int cent_x= loc_x+x;
+		int cent_y= loc_y+y;
+		
+	//	coordinate c =  new coordinate();s
 		
 		switch (gunDir){
 		case L: 	
-			g.drawLine(loc_x+x, loc_y+y, loc_x-xEx, loc_y);
+			g.drawLine(cent_x, cent_y, cent_x-xEx, cent_y);
 			break;
 		case LU:
-			g.drawLine(loc_x+x, loc_y+y, loc_y-xEx, loc_y-yEx);
+			g.drawLine(cent_x, cent_y, cent_x-xEx, cent_y-yEx);
 			break;
 		case U: 
-			g.drawLine(loc_x+x, loc_y+y, loc_x, loc_y-yEx);
+			g.drawLine(cent_x, cent_y, cent_x, cent_y-yEx);
 			break;
 		case RU:
-			g.drawLine(loc_x+x, loc_y+y, loc_x+xEx, loc_y-yEx);
+			g.drawLine(cent_x, cent_y, cent_x+xEx, cent_y-yEx);
 			break;
 		case R: 
-			g.drawLine(loc_x+x, loc_y+y, loc_x+xEx, loc_y);
+			g.drawLine(cent_x, cent_y, cent_x+xEx, cent_y);
 			break;
 		case RD:
-			g.drawLine(loc_x+x, loc_y+y, loc_x+xEx, loc_y+yEx);
+			g.drawLine(cent_x, cent_y, cent_x+xEx, cent_y+yEx);
 			break;	
 		case D: 
-			g.drawLine(loc_x+x, loc_y+y, loc_x, loc_y+yEx);
+			g.drawLine(cent_x, cent_y, cent_x, cent_y+yEx);
 			break;
 		case LD:
-			g.drawLine(loc_x+x, loc_y+y, loc_x-xEx, loc_y+yEx);
+			g.drawLine(cent_x, cent_y, cent_x-xEx, cent_y+yEx);
 			break;
 		case S: 
 			break;
@@ -132,7 +137,7 @@ public class Tank {
 		int loc_x= this.loc_x + WIDTH/2 - Bullet.WIDTH;
 		int loc_y= this.loc_y + HEIGHT/2 - Bullet.HEIGHT;
 		
-		Bullet b = new Bullet(loc_x,loc_y,dir);
+		Bullet b = new Bullet(loc_x,loc_y,gunDir);
 		return b;
 	}
 
