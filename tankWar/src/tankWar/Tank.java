@@ -2,6 +2,7 @@ package tankWar;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 public class Tank {
@@ -14,7 +15,18 @@ public class Tank {
 	
 	tankClinet tc =null;
 	
+	private boolean tLive =true;
 	
+	
+	public boolean istLive() {
+		return tLive;
+	}
+	
+	public void settLive(boolean tLive) {
+		this.tLive = tLive;
+	}
+
+
 	private boolean enemyTank =false;
 	
 	private int loc_x,loc_y;
@@ -47,6 +59,8 @@ public class Tank {
 	
 	
 	public void draw(Graphics g){
+		if(!tLive) return;
+		
 		Color c = g.getColor();
 		if(enemyTank)
 			g.setColor(Color.BLUE);
@@ -60,7 +74,9 @@ public class Tank {
 		
 	}
 	
-	
+
+
+
 	public void gunMove(Graphics g){
 		
 		int x =Tank.WIDTH/2;
@@ -185,6 +201,12 @@ public class Tank {
 		else if( bL && !bU && !bR && bD)  dir = Direction.LD ;
 		else if(!bL && !bU && !bR && !bD) dir = Direction.S ;
 		
+	}
+	
+	
+	public Rectangle getRect(){
+		
+		return new Rectangle(loc_x, loc_y, WIDTH, HEIGHT);
 	}
 	
 }

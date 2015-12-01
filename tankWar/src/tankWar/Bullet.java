@@ -2,6 +2,7 @@ package tankWar;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import tankWar.Tank.Direction;
 
@@ -54,7 +55,10 @@ public class Bullet {
 	
 	
 	public void move(){
-		
+		if(!BulletLive){
+			tc.bullets.remove(this);
+			return;
+		}
 		
 		switch (dir){
 		case L: bullit_x-=XSPEED; break;
@@ -77,5 +81,19 @@ public class Bullet {
 	   
 }
 
+	
+	public Rectangle getRect(){
+		
+		return new Rectangle(bullit_x, bullit_y, WIDTH, HEIGHT);
+	}
+	
+	public boolean hitTank(Tank t){		
+		if(this.getRect().intersects(t.getRect()) && t.istLive()){
+			t.settLive(false);
+			this.BulletLive=false;
+			return true;
+			}
+		return false;
+	}
 	
 }

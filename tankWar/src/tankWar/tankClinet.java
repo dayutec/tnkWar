@@ -22,7 +22,7 @@ public class tankClinet extends Frame {
 	public static final int WIN_SIZE_WIDTH =800;
 	public static final int WIN_SIZE_HEIGHT =600;
 	
-	public static final boolean FriendTank =true;
+	public static final boolean FriendTank =false;
 	public static final boolean EnemyTank =true;
 	//int tank_x=50, tank_y=50;
 	
@@ -51,6 +51,7 @@ public class tankClinet extends Frame {
 		
 		for(int i=0; i< bullets.size() ;i++){
 			Bullet b = bullets.get(i);
+			b.hitTank(antiTank);
 			b.draw(g);
 		}
 		
