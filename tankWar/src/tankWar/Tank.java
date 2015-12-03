@@ -41,7 +41,7 @@ public class Tank {
 	enum Direction{L,LU,U,RU,R,RD,D,LD,S};
 	private Direction dir = Direction.S;
 	private Direction gunDir = Direction.R;
-	
+	private int step = r.nextInt(12)+3;
 
 	public Tank(int loc_x, int loc_y, boolean eT) {
 		super();
@@ -154,10 +154,18 @@ public class Tank {
 		if(loc_x + Tank.WIDTH > tankClinet.WIN_SIZE_WIDTH) loc_x = tankClinet.WIN_SIZE_WIDTH -Tank.WIDTH;
 		if(loc_y + Tank.HEIGHT> tankClinet.WIN_SIZE_HEIGHT) loc_y = tankClinet.WIN_SIZE_HEIGHT -Tank.HEIGHT;
 		
-		if(enemyTank){
+		if(enemyTank){ 
+			
 			Direction[] dirs =Direction.values();
-			int rn = r.nextInt(dirs.length);
-			dir=dirs[rn];
+			if(step == 0){
+				step = r.nextInt(12)+3;
+			    
+				int rn = r.nextInt(dirs.length);
+				dir=dirs[rn];
+			}
+			
+			step--;
+			
 		}
 	}
 	
