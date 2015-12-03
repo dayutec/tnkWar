@@ -28,6 +28,8 @@ public class tankClinet extends Frame {
 	
 	Tank myTank = new Tank(50,50,FriendTank ,this);
 	Tank antiTank = new Tank(100,50,EnemyTank ,this);
+	
+	Explode e = new Explode(100,100,this);
 //	Bullet b = null;
 	
 	List<Bullet> bullets  = new ArrayList<Bullet>();
@@ -45,8 +47,7 @@ public class tankClinet extends Frame {
 		
 		g.drawString("bullets acount " +bullets.size(), 60, 60);
 	
-		myTank.draw(g);
-		antiTank.draw(g);
+		
 	//	if(b!=null)	b.draw(g);
 		
 		for(int i=0; i< bullets.size() ;i++){
@@ -55,6 +56,10 @@ public class tankClinet extends Frame {
 			b.draw(g);
 		}
 		
+		
+		e.draw(g);
+		myTank.draw(g);
+		antiTank.draw(g);
 	}
 	
 	
