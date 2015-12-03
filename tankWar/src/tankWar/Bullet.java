@@ -91,6 +91,10 @@ public class Bullet {
 		if(this.getRect().intersects(t.getRect()) && t.istLive()){
 			t.settLive(false);
 			this.BulletLive=false;
+			
+			Explode e = new Explode(bullit_x,bullit_y,tc);
+			tc.explodes.add(e);
+			
 			return true;
 			}
 		return false;

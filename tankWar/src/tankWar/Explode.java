@@ -7,7 +7,7 @@ public class Explode {
 	int x,y;
 	private  boolean live =true;
 	
-	int[] diameter ={4,7,12,18,32,49,30,14,6};
+	int[] diameter ={4,7,12,18,32,32,30,14,6};
 	
 	int step=0;
 	
@@ -21,11 +21,15 @@ public class Explode {
 	
 	
 	public void draw(Graphics g){
-		if(!live)return;
+		if(!live){
+		tc.explodes.remove(this);	
+		return;
+		}
 		
 		if(step == diameter.length){
 			live =false;
 			step=0;
+			
 		}
 		Color c = g.getColor();
 		g.setColor(Color.YELLOW);
