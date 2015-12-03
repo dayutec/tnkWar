@@ -27,10 +27,12 @@ public class tankClinet extends Frame {
 	//int tank_x=50, tank_y=50;
 	
 	Tank myTank = new Tank(50,50,FriendTank ,this);
-	Tank antiTank = new Tank(100,50,EnemyTank ,this);
+//	Tank antiTank = new Tank(100,50,EnemyTank ,this);
 	
 //	Explode e = new Explode(100,100,this);
 //	Bullet b = null;
+	
+	List<Tank> antiTanks  = new ArrayList<Tank>();
 	
 	List<Explode> explodes  = new ArrayList<Explode>();
 	List<Bullet> bullets  = new ArrayList<Bullet>();
@@ -53,7 +55,7 @@ public class tankClinet extends Frame {
 		
 		for(int i=0; i< bullets.size() ;i++){
 			Bullet b = bullets.get(i);
-			b.hitTank(antiTank);
+			b.hitTanks(antiTanks);
 			b.draw(g);
 		}
 		
@@ -64,7 +66,12 @@ public class tankClinet extends Frame {
 		}
 		
 		myTank.draw(g);
-		antiTank.draw(g);
+		
+		for(int i=0; i< antiTanks.size() ;i++){
+			Tank antiTank = antiTanks.get(i);
+			antiTank.draw(g);
+		}
+		
 	}
 	
 	
@@ -88,7 +95,16 @@ public class tankClinet extends Frame {
 	}
 	
 	
+	public void initAntiTank(){
+		
+		for(int i=2; i<=10;i++){
+			antiTanks.add(new Tank(i*50,50,EnemyTank ,this));
+		}
+		
+	}
+	
 	public void lauchFrame(){
+		this.initAntiTank();
 		this.setLocation(200,50);
 		this.setSize(WIN_SIZE_WIDTH, WIN_SIZE_HEIGHT);
 		this.setTitle("TankWar");

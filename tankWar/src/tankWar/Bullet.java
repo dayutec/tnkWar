@@ -3,6 +3,7 @@ package tankWar;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.List;
 
 import tankWar.Tank.Direction;
 
@@ -99,5 +100,17 @@ public class Bullet {
 			}
 		return false;
 	}
+	
+	public boolean hitTanks(List<Tank> tanks){
+		
+		for(int i=0;i<tanks.size();i++){
+			if(hitTank(tanks.get(i))){
+				return true;
+			}
+		}
+		
+		return false;
+		
+	} 
 	
 }
