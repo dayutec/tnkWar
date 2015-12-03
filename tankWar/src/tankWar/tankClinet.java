@@ -26,7 +26,7 @@ public class tankClinet extends Frame {
 	public static final boolean EnemyTank =true;
 	//int tank_x=50, tank_y=50;
 	
-	Tank myTank = new Tank(50,50,FriendTank ,this);
+	Tank myTank = new Tank(50,50,FriendTank ,Tank.Direction.S,this);
 //	Tank antiTank = new Tank(100,50,EnemyTank ,this);
 	
 //	Explode e = new Explode(100,100,this);
@@ -98,7 +98,7 @@ public class tankClinet extends Frame {
 	public void initAntiTank(){
 		
 		for(int i=2; i<=10;i++){
-			antiTanks.add(new Tank(i*50,50,EnemyTank ,this));
+			antiTanks.add(new Tank(i*50,50,EnemyTank,Tank.Direction.D ,this));
 		}
 		
 	}

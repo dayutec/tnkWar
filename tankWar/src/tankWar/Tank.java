@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 public class Tank {
 	
@@ -13,7 +14,9 @@ public class Tank {
 	public static final int WIDTH=30;
 	public static final int HEIGHT=30;
 	
-	tankClinet tc =null;
+	private static Random r =new Random();
+	
+	static tankClinet tc =null;
 	
 	private boolean tLive =true;
 	
@@ -49,11 +52,11 @@ public class Tank {
 	}
 	
 
-	public Tank(int loc_x, int loc_y, boolean eT, tankClinet tc) {
+	public Tank(int loc_x, int loc_y, boolean eT,Direction dir, tankClinet tc) {
 		
 		this(loc_x,loc_y,eT);
-		this.tc =tc;
-		
+		Tank.tc =tc;
+		this.dir= dir;
 	}
 	
 	
@@ -151,6 +154,11 @@ public class Tank {
 		if(loc_x + Tank.WIDTH > tankClinet.WIN_SIZE_WIDTH) loc_x = tankClinet.WIN_SIZE_WIDTH -Tank.WIDTH;
 		if(loc_y + Tank.HEIGHT> tankClinet.WIN_SIZE_HEIGHT) loc_y = tankClinet.WIN_SIZE_HEIGHT -Tank.HEIGHT;
 		
+		if(enemyTank){
+			Direction[] dirs =Direction.values();
+			int rn = r.nextInt(dirs.length);
+			dir=dirs[rn];
+		}
 	}
 	
 	public void keypress(KeyEvent e){
@@ -174,7 +182,7 @@ public class Tank {
 		int loc_x= this.loc_x + WIDTH/2 - Bullet.WIDTH;
 		int loc_y= this.loc_y + HEIGHT/2 - Bullet.HEIGHT;
 		
-		Bullet b = new Bullet(loc_x,loc_y,gunDir,this.tc);
+		Bullet b = new Bullet(loc_x,loc_y,gunDir,Tank.tc);
 		tc.bullets.add(b);
 		
 		return b;
