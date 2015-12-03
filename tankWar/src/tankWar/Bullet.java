@@ -19,8 +19,12 @@ public class Bullet {
 	public static final int WIDTH=5;
 	public static final int HEIGHT=5;
 	
+	
 	int bullit_x,bullit_y;
 	Tank.Direction dir;
+	
+	private  boolean enemyB =true;
+	private  boolean myB =false;
 	
 	private boolean BulletLive = true;
 	private tankClinet tc;
@@ -37,9 +41,10 @@ public class Bullet {
 		this.dir = dir;
 	}
 	
-	public Bullet(int x, int y, Direction dir,tankClinet tc) {
+	public Bullet(int x, int y,boolean enemyB, Direction dir,tankClinet tc) {
 		this(x,y,dir);
 		this.tc = tc;
+		this.setEnemyB(enemyB);
 	}
 	
 	
@@ -89,7 +94,7 @@ public class Bullet {
 	}
 	
 	public boolean hitTank(Tank t){		
-		if(this.getRect().intersects(t.getRect()) && t.istLive()){
+		if(this.isBulletLive() && this.getRect().intersects(t.getRect()) && t.istLive() && this.enemyB !=t.isEnemyTank()){
 			t.settLive(false);
 			this.BulletLive=false;
 			
@@ -111,6 +116,22 @@ public class Bullet {
 		
 		return false;
 		
+	}
+
+	public boolean isEnemyB() {
+		return enemyB;
+	}
+
+	public void setEnemyB(boolean enemyB) {
+		this.enemyB = enemyB;
+	}
+
+	public boolean isMyB() {
+		return myB;
+	}
+
+	public void setMyB(boolean myB) {
+		this.myB = myB;
 	} 
 	
 }

@@ -56,6 +56,7 @@ public class tankClinet extends Frame {
 		for(int i=0; i< bullets.size() ;i++){
 			Bullet b = bullets.get(i);
 			b.hitTanks(antiTanks);
+			b.hitTank(myTank);
 			b.draw(g);
 		}
 		

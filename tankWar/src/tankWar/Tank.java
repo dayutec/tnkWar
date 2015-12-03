@@ -32,6 +32,15 @@ public class Tank {
 
 	private boolean enemyTank =false;
 	
+	public boolean isEnemyTank() {
+		return enemyTank;
+	}
+
+	public void setEnemyTank(boolean enemyTank) {
+		this.enemyTank = enemyTank;
+	}
+
+
 	private int loc_x,loc_y;
 
 	
@@ -66,6 +75,7 @@ public class Tank {
 			if(enemyTank){
 				tc.antiTanks.remove(this);
 			}
+
 			return;
 		}
 		
@@ -165,7 +175,7 @@ public class Tank {
 			}
 			
 			step--;
-			
+			if(r.nextInt(40)>35) this.fire();
 		}
 	}
 	
@@ -187,10 +197,11 @@ public class Tank {
 
 	private Bullet fire() {
 		
+		if(!tLive) return null;
 		int loc_x= this.loc_x + WIDTH/2 - Bullet.WIDTH;
 		int loc_y= this.loc_y + HEIGHT/2 - Bullet.HEIGHT;
 		
-		Bullet b = new Bullet(loc_x,loc_y,gunDir,Tank.tc);
+		Bullet b = new Bullet(loc_x,loc_y,enemyTank,gunDir,Tank.tc);
 		tc.bullets.add(b);
 		
 		return b;
