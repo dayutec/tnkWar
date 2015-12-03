@@ -59,7 +59,12 @@ public class Tank {
 	
 	
 	public void draw(Graphics g){
-		if(!tLive) return;
+		if(!tLive){ 
+			if(enemyTank){
+				tc.antiTanks.remove(this);
+			}
+			return;
+		}
 		
 		Color c = g.getColor();
 		if(enemyTank)
