@@ -42,7 +42,7 @@ public class Tank {
 
 
 	private int loc_x,loc_y;
-
+	private int old_x,old_y;
 	
 	private boolean bL= false ,bU =false, bD= false, bR=false;
 
@@ -138,9 +138,17 @@ public class Tank {
 		}
 	}
 	
-	
+
+	private void stay(){
+		loc_x=old_x;
+		loc_y=old_y;
+	};
 	
 	public void move(){
+		
+		old_x=loc_x;
+		old_y=loc_y;
+				
 		switch (dir){
 		case L: loc_x-=XSPEED; break;
 		case LU:loc_x-=XSPEED; loc_y-=YSPEED;break;
@@ -240,5 +248,17 @@ public class Tank {
 		
 		return new Rectangle(loc_x, loc_y, WIDTH, HEIGHT);
 	}
+	
+	
+	public boolean hitWall(Wall w){		
+		if(this.istLive() && this.getRect().intersects(w.getRect()) ){
+			
+			stay();
+				
+			return true;
+			}
+		return false;
+	}
+	
 	
 }

@@ -93,6 +93,17 @@ public class Bullet {
 		return new Rectangle(bullit_x, bullit_y, WIDTH, HEIGHT);
 	}
 	
+
+	public boolean hitWall(Wall w){		
+		if(this.isBulletLive() && this.getRect().intersects(w.getRect()) ){
+			this.BulletLive=false;
+				
+			return true;
+			}
+		return false;
+	}
+	
+	
 	public boolean hitTank(Tank t){		
 		if(this.isBulletLive() && this.getRect().intersects(t.getRect()) && t.istLive() && this.enemyB !=t.isEnemyTank()){
 			t.settLive(false);
@@ -105,6 +116,8 @@ public class Bullet {
 			}
 		return false;
 	}
+	
+	
 	
 	public boolean hitTanks(List<Tank> tanks){
 		

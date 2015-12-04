@@ -27,6 +27,9 @@ public class tankClinet extends Frame {
 	//int tank_x=50, tank_y=50;
 	
 	Tank myTank = new Tank(50,50,FriendTank ,Tank.Direction.S,this);
+	
+	Wall w1 = new Wall(this);
+	
 //	Tank antiTank = new Tank(100,50,EnemyTank ,this);
 	
 //	Explode e = new Explode(100,100,this);
@@ -57,6 +60,7 @@ public class tankClinet extends Frame {
 			Bullet b = bullets.get(i);
 			b.hitTanks(antiTanks);
 			b.hitTank(myTank);
+			b.hitWall(w1);
 			b.draw(g);
 		}
 		
@@ -68,8 +72,12 @@ public class tankClinet extends Frame {
 		
 		myTank.draw(g);
 		
+		w1.draw(g);
+		
+		
 		for(int i=0; i< antiTanks.size() ;i++){
 			Tank antiTank = antiTanks.get(i);
+			antiTank.hitWall(w1);
 			antiTank.draw(g);
 		}
 		
