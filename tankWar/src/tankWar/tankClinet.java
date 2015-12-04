@@ -79,6 +79,7 @@ public class tankClinet extends Frame {
 			Tank antiTank = antiTanks.get(i);
 			antiTank.hitWall(w1);
 			antiTank.draw(g);
+			antiTank.hitTanks(antiTanks);
 		}
 		
 	}

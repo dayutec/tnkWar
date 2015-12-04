@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import java.util.Random;
 
 public class Tank {
@@ -256,6 +257,25 @@ public class Tank {
 			stay();
 				
 			return true;
+			}
+		return false;
+	}
+	
+	
+	public boolean hitTanks(List<Tank> Tanks ){		
+		
+		for(int i=0 ;i<Tanks.size();i++){
+			Tank t = Tanks.get(i);
+			
+			if(this != t){
+				
+				if(this.istLive() && this.getRect().intersects(t.getRect()) ){
+					this.stay();
+					t.stay();
+					return true;
+					}
+				}		
+			
 			}
 		return false;
 	}
