@@ -29,7 +29,7 @@ public class tankClinet extends Frame {
 	Tank myTank = new Tank(50,50,FriendTank ,Tank.Direction.S,this);
 	
 	Wall w1 = new Wall(this);
-	
+	Blood b = new Blood();
 //	Tank antiTank = new Tank(100,50,EnemyTank ,this);
 	
 //	Explode e = new Explode(100,100,this);
@@ -71,9 +71,10 @@ public class tankClinet extends Frame {
 		}
 		
 		myTank.draw(g);
-		
+		myTank.hitBlood(b);
 		w1.draw(g);
 		
+		b.draw(g);
 		
 		for(int i=0; i< antiTanks.size() ;i++){
 			Tank antiTank = antiTanks.get(i);
