@@ -56,6 +56,10 @@ public class tankClinet extends Frame {
 		g.drawString("antiTanks acount " +myTank.getLife(), 60, 100);
 	//	if(b!=null)	b.draw(g);
 		
+		if(antiTanks.size()<=0){
+			initAntiTank();
+		}
+		
 		for(int i=0; i< bullets.size() ;i++){
 			Bullet b = bullets.get(i);
 			b.hitTanks(antiTanks);

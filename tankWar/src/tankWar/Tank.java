@@ -215,6 +215,16 @@ public class Tank {
 	public void keypress(KeyEvent e){
 		int key = e.getKeyCode();
 		switch (key){
+			case KeyEvent.VK_F2 : 
+			//	if(!tc.myTank.tLive)
+			//		tc.myTank.tLive =true;
+			//		tc.myTank.life=100;
+				if(!this.tLive)
+					this.tLive =true;
+					this.life=100;
+				
+				
+				; break;
 			case KeyEvent.VK_RIGHT : bR = true; break;
 			case KeyEvent.VK_LEFT  : bL = true; break;
 			case KeyEvent.VK_UP    : bU = true; break;
