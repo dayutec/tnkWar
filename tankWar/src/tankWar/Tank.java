@@ -20,8 +20,16 @@ public class Tank {
 	static tankClinet tc =null;
 	
 	private boolean tLive =true;
+	private int life =100;
 	
-	
+	public int getLife() {
+		return life;
+	}
+
+	public void setLife(int life) {
+		this.life = life;
+	}
+
 	public boolean istLive() {
 		return tLive;
 	}

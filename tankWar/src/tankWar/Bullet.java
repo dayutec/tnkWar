@@ -106,7 +106,16 @@ public class Bullet {
 	
 	public boolean hitTank(Tank t){		
 		if(this.isBulletLive() && this.getRect().intersects(t.getRect()) && t.istLive() && this.enemyB !=t.isEnemyTank()){
-			t.settLive(false);
+			
+			if(t.isEnemyTank()){
+				t.settLive(false);
+			}
+			else{
+				t.setLife(t.getLife()-20);
+				if(t.getLife()<=0)t.settLive(false);
+			}
+			
+			
 			this.BulletLive=false;
 			
 			Explode e = new Explode(bullit_x,bullit_y,tc);
