@@ -22,6 +22,9 @@ public class Tank {
 	private boolean tLive =true;
 	private int life =100;
 	
+	private BloodBar bb =new BloodBar();
+	
+	
 	public int getLife() {
 		return life;
 	}
@@ -89,10 +92,13 @@ public class Tank {
 		}
 		
 		Color c = g.getColor();
-		if(enemyTank)
+		if(enemyTank){
 			g.setColor(Color.BLUE);
-		else
+		}
+		else{
 			g.setColor(Color.RED);
+            bb.draw(g);		
+		}
 		g.fillOval(loc_x, loc_y, WIDTH, HEIGHT);
 		g.setColor(c);
 		
@@ -101,7 +107,17 @@ public class Tank {
 		
 	}
 	
-
+	private class BloodBar{
+		public void draw(Graphics g){
+			Color c = g.getColor();
+			g.setColor(Color.RED);
+			g.drawRect(loc_x, loc_y-10, WIDTH, 10);
+			int w = WIDTH * life/100;
+			
+			g.fillRect(loc_x, loc_y-10, w, 10);
+			g.setColor(c);
+		}
+	}
 
 
 	public void gunMove(Graphics g){
