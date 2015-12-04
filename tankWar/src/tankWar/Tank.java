@@ -175,7 +175,7 @@ public class Tank {
 			}
 			
 			step--;
-			if(r.nextInt(40)>35) this.fire();
+			if(r.nextInt(40)>38) this.fire();
 		}
 	}
 	
