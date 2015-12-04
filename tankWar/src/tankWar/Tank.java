@@ -215,6 +215,20 @@ public class Tank {
 		
 		return b;
 	}
+	
+	
+	private Bullet fire(Direction direction) {
+		// TODO Auto-generated method stub
+		if(!tLive) return null;
+		int loc_x= this.loc_x + WIDTH/2 - Bullet.WIDTH;
+		int loc_y= this.loc_y + HEIGHT/2 - Bullet.HEIGHT;
+		
+		Bullet b = new Bullet(loc_x,loc_y,enemyTank,direction,Tank.tc);
+		tc.bullets.add(b);
+		
+		return b;
+	}
+	
 
 	public void keyRelease(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -225,6 +239,7 @@ public class Tank {
 			case KeyEvent.VK_UP    : bU = false; break;
 			case KeyEvent.VK_DOWN  : bD = false; break;
 			case KeyEvent.VK_SPACE : fire() ;break;
+			case KeyEvent.VK_A : superFire() ;break;
 			default :break;
 		}
 		
@@ -280,5 +295,13 @@ public class Tank {
 		return false;
 	}
 	
+	private void superFire(){
+		Direction[] dirs = Direction.values();
+		for(int i =0; i<8 ;i++){
+			fire(dirs[i]);
+		}
+	}
+
+
 	
 }
