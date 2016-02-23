@@ -14,7 +14,7 @@ public class SimpleFrameTest {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				SimplerFrame frame = new SimplerFrame();
+				ButtonFrame frame = new ButtonFrame();
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);
 			}

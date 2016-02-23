@@ -312,7 +312,7 @@ public class Tank {
 	
 	
 	public boolean hitTanks(List<Tank> Tanks ){		
-		
+		//TODO
 		for(int i=0 ;i<Tanks.size();i++){
 			Tank t = Tanks.get(i);
 			
