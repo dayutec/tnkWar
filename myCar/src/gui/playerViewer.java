@@ -11,9 +11,7 @@ import java.awt.event.ActionListener;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,7 +29,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import javazoom.jl.decoder.JavaLayerException;
+
 import lrc.mp3Demo;
 
 @SuppressWarnings("serial")
@@ -154,9 +152,10 @@ public class playerViewer extends JFrame{
 	public void updateSongBar(){
 		
 		
-		final long songLength = mD.getSongLength();
+		long songLength = mD.getSongLength();
 		sliderSongLengthBar.setMaximum( (int) songLength);
 		System.out.println(sliderSongLengthBar.getMaximum());	
+		
 		new Thread() {
 
 			@Override
@@ -164,23 +163,19 @@ public class playerViewer extends JFrame{
 			
 				while(!mD.player.isComplete()){
 				try {
-					long UpdateSonePosition = mD.UpdateSonePosition();
-					sleep(1000);
-					
-					int positionPercent = (int)(songLength-UpdateSonePosition);
-					sliderSongLengthBar.setValue( positionPercent );
+					sleep(1000);	
+					long songPosition = mD.UpdateSongPosition();
+					sliderSongLengthBar.setValue( sliderSongLengthBar.getMaximum()-(int) songPosition );
 						
-					System.out.println(sliderSongLengthBar.getValue());
+					//System.out.println(sliderSongLengthBar.getValue());
 				
 				
-				} catch (InterruptedException e) {
-				
-					e.printStackTrace();
-				}
+					} catch (InterruptedException e) {
+					}
 				}
 			}
 		}.start();
-		
+	
 	}
 	
 	
@@ -190,21 +185,17 @@ public class playerViewer extends JFrame{
 
 		@Override
 		public void stateChanged(ChangeEvent e) {
-			
-			if(autoPlay )return;
-			else{
-			JSlider slider = (JSlider) e.getSource();
-			
-			if(!slider.getValueIsAdjusting()){
-			
-			int len = slider.getValue();	
 						
-				System.out.println(len);
-				double pausePrecent = (double) (len/100.0);
-				mD.platMp3Anywhere(pausePrecent);
+			if(autoPlay)return;
+			
+			else{		
+				JSlider slider = (JSlider) e.getSource();
+				if(slider.getValueIsAdjusting()) return ;
+				int len = slider.getValue();
+				mD.playMp3Anywhere(len);
 				autoPlay = true;
 			}
-			}
+			
 		}
 		
 		
@@ -224,13 +215,13 @@ public class playerViewer extends JFrame{
 		@Override
 		public void mousePressed(MouseEvent e) {
 			
-			
+			autoPlay = false;
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			
-			autoPlay = false;
+			//autoPlay = false;
 		}
 
 		
@@ -247,8 +238,7 @@ public class playerViewer extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		//	mD.readMp3();
-			
+					
 			switch(buttonTitle){
 				case "Pause" :  mD.PauseMp3();
 								System.out.println("Pause"); 

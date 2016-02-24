@@ -25,6 +25,7 @@ public class mp3Demo {
 
 	public final Pattern pattern = Pattern.compile("(?<=//[).*?(?=//])");
 	
+	File file = new File("C://Users//eyuuyee//Music//0541.mp3");
 	public FileInputStream fis;
 	public BufferedInputStream BIS;
 	public SourceDataLine dataLine;
@@ -34,7 +35,11 @@ public class mp3Demo {
 	public Player player;
 	private long pausePosition;
 	private long songLength;
+	private boolean palyedBoolean=false;
 	
+	public mp3Demo(){
+		
+	}
 	
 	public String songName;
 	
@@ -64,14 +69,36 @@ public class mp3Demo {
 	}
 
 	public void readMp3(String song) {
+		
+		// Place only once ,next click will return
+		if(palyedBoolean)return;
+		palyedBoolean = true;
+		
 		System.out.println("----------play music----------");
 		String path = song ; 
-		if(path == null) path = "C://Users//eyuuyee//Music//0541.mp3";
-		
-		File file = new File(path);
-		try {
-			fis = new FileInputStream(file);
+		if(path == null) {
+			path = "C://Users//eyuuyee//Music//0541.mp3";
 			
+			//TODO  add method that can get path from play list 
+			
+			file = new File(path);
+		}		
+			try {
+				fis = new FileInputStream(file);
+				PlayMp3(fis);
+			} catch (FileNotFoundException e) {
+			}
+	
+
+
+	}
+	
+	
+	public void PlayMp3( FileInputStream fis){
+		
+				
+		try {
+		
 			BIS = new BufferedInputStream(fis);
 			player = new Player(BIS);
 			
@@ -91,8 +118,7 @@ public class mp3Demo {
 				}
 					
 			}.start();
-
-
+		
 	}
 	
 	public void stopMp3() {
@@ -120,74 +146,45 @@ public class mp3Demo {
 	
 	
 public void ResumeMp3() {
-		
-		File file = new File("C://Users//eyuuyee//Music//0541.mp3");
-		try {
-			fis = new FileInputStream(file);
-			fis.skip(songLength - pausePosition);
-			BIS = new BufferedInputStream(fis);
-			player = new Player(BIS);
 			
-			}catch (JavaLayerException | IOException e ) {
+			try {
+				fis = new FileInputStream(file);
+				fis.skip(songLength - pausePosition);
+				PlayMp3(fis);
+			} catch (Exception e) {
 			}
-		
-		
-			new Thread() {
+				
 
-				@Override
-				public void run() {
-					try {
-						player.play();
-					} catch (JavaLayerException e) {
-					}
-				}
-					
-			}.start();
 	}
 	
 
-	public long UpdateSonePosition(){
-
-		long pos = 0;
-		try {
-		
-		  pos =  fis.available();
-		} catch (IOException e) {
+	public long UpdateSongPosition(){
+		if(player == null) return 0;
 			
-		};
-		return pos;
+		try {
+			pausePosition = fis.available();
+		} catch (IOException e) {
+		}
+		return pausePosition;
 	}
 	
-	public void platMp3Anywhere(double pausePrecent) {
+	public void playMp3Anywhere(int pausePrecent) {
+		
+		if(!palyedBoolean) return;
 		
 		if(player != null){
 			player.close();
 		}
-		
-		File file = new File("C://Users//eyuuyee//Music//0541.mp3");
+
 		try {
 			fis = new FileInputStream(file);
-			songLength = fis.available();
-			pausePosition = (long)(songLength * (pausePrecent)) ;
-			fis.skip(pausePosition);
-			BIS = new BufferedInputStream(fis);
-			player = new Player(BIS);
-			
-			}catch (JavaLayerException | IOException e ) {
-			}
+			fis.skip(pausePrecent);
+			pausePosition = fis.available();
 		
-		
-			new Thread() {
+		} catch ( IOException e ) {
+		}
 
-				@Override
-				public void run() {
-					try {
-						player.play();
-					} catch (JavaLayerException e) {
-					}
-				}
-					
-			}.start();
+			PlayMp3(fis);
 	}
 	
 	
