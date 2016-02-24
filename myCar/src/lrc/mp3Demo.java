@@ -34,6 +34,8 @@ public class mp3Demo {
 	public Player player;
 	private long pausePosition;
 	private long songLength;
+	
+	
 	public String songName;
 	
 	public void readFile() {
@@ -117,12 +119,57 @@ public class mp3Demo {
 	}
 	
 	
-	public void ResumeMp3() {
+public void ResumeMp3() {
 		
 		File file = new File("C://Users//eyuuyee//Music//0541.mp3");
 		try {
 			fis = new FileInputStream(file);
 			fis.skip(songLength - pausePosition);
+			BIS = new BufferedInputStream(fis);
+			player = new Player(BIS);
+			
+			}catch (JavaLayerException | IOException e ) {
+			}
+		
+		
+			new Thread() {
+
+				@Override
+				public void run() {
+					try {
+						player.play();
+					} catch (JavaLayerException e) {
+					}
+				}
+					
+			}.start();
+	}
+	
+
+	public long UpdateSonePosition(){
+
+		long pos = 0;
+		try {
+		
+		  pos =  fis.available();
+		} catch (IOException e) {
+			
+		};
+		return pos;
+	}
+	
+	public void platMp3Anywhere(double pausePrecent) {
+		
+		if(player != null){
+			player.close();
+		}
+		
+		File file = new File("C://Users//eyuuyee//Music//0541.mp3");
+		try {
+			fis = new FileInputStream(file);
+			songLength = fis.available();
+			pausePosition = (long)(songLength * (pausePrecent)) ;
+			fis.skip(pausePosition);
 			BIS = new BufferedInputStream(fis);
 			player = new Player(BIS);
 			
@@ -161,6 +208,10 @@ public class mp3Demo {
 		}
 	}
 
+	public long getSongLength() {
+		return songLength;
+	}
+	
 	public void parseLine(String line) {
 		Matcher matcher = pattern.matcher(line);
 		while (matcher.find()) {

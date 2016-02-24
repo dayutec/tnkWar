@@ -4,9 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+
+
+
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,6 +31,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import javazoom.jl.decoder.JavaLayerException;
 import lrc.mp3Demo;
 
 @SuppressWarnings("serial")
@@ -45,9 +53,11 @@ public class playerViewer extends JFrame{
 	private buttonAction BResumeA;
 	
 	private sliderAction songBarAction;
+//	private boolean initBar = true;
+	public boolean autoPlay = true;
+
 	private sliderMouseAction sMA;
-	
-	private boolean isMouseReleased = true;
+//	private boolean isMouseReleased = true;
 	
 	
 	public playerViewer(){
@@ -91,17 +101,23 @@ public class playerViewer extends JFrame{
 		add(panelFile,BorderLayout.WEST);
 		BFileA = new buttonAction("Files");
 		buttonFile.addActionListener(BFileA);
-		
-		sliderSongLengthBar = new JSlider(0,100,50);
+	
+		// Add Slider Bar for user for dragging song's position
+		sliderSongLengthBar = new JSlider(0,100,0);
 		songBarAction = new sliderAction();
-		sMA = new sliderMouseAction();
 		sliderSongLengthBar.addChangeListener(songBarAction);
-	//	sliderSongLengthBar.addMouseListener(sMA);
+	    // Add mouse Action Listener , but replaced by getValueIsAdjusting() 
+		// change variety of autoPlay
+		sMA = new sliderMouseAction();
+		sliderSongLengthBar.addMouseListener(sMA);
 		panelSlider = new JPanel();
 		panelSlider.add(sliderSongLengthBar);
-		add(panelSlider);
-	}
+		add(panelSlider,BorderLayout.CENTER);
 
+		
+		
+	}
+	
 	public void initButtonLayout(){
 		JButton buttonPlay = new JButton("Play");
 		JButton buttonStop = new JButton("Stop");
@@ -133,16 +149,61 @@ public class playerViewer extends JFrame{
 		System.out.println("init end");
 	}
 	
+	
+	
+	public void updateSongBar(){
+		
+		
+		final long songLength = mD.getSongLength();
+		sliderSongLengthBar.setMaximum( (int) songLength);
+		System.out.println(sliderSongLengthBar.getMaximum());	
+		new Thread() {
+
+			@Override
+			public void run() {
+			
+				while(!mD.player.isComplete()){
+				try {
+					long UpdateSonePosition = mD.UpdateSonePosition();
+					sleep(1000);
+					
+					int positionPercent = (int)(songLength-UpdateSonePosition);
+					sliderSongLengthBar.setValue( positionPercent );
+						
+					System.out.println(sliderSongLengthBar.getValue());
+				
+				
+				} catch (InterruptedException e) {
+				
+					e.printStackTrace();
+				}
+				}
+			}
+		}.start();
+		
+	}
+	
+	
 	private class sliderAction implements ChangeListener{
+
+		
 
 		@Override
 		public void stateChanged(ChangeEvent e) {
 			
+			if(autoPlay )return;
+			else{
 			JSlider slider = (JSlider) e.getSource();
+			
 			if(!slider.getValueIsAdjusting()){
 			
 			int len = slider.getValue();	
-			System.out.println(len);	
+						
+				System.out.println(len);
+				double pausePrecent = (double) (len/100.0);
+				mD.platMp3Anywhere(pausePrecent);
+				autoPlay = true;
+			}
 			}
 		}
 		
@@ -150,27 +211,26 @@ public class playerViewer extends JFrame{
 	}
 	
 	
+	
+	
+	
 	private class sliderMouseAction extends MouseAdapter{
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-		//	isMouseReleased = false;
-		//	System.out.println("click");
+			autoPlay = false;
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			isMouseReleased = false;
-			System.out.println(isMouseReleased);
+			
+			
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			isMouseReleased = true;
-			System.out.println(isMouseReleased);
+			
+			autoPlay = false;
 		}
 
 		
@@ -197,6 +257,7 @@ public class playerViewer extends JFrame{
 								System.out.println("Resume"); 
 								break;
 				case "Play"  :  mD.readMp3(null);
+								updateSongBar();
 								System.out.println("Play"); 
 								break;
 				case "Stop"  :  mD.stopMp3();
