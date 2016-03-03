@@ -1,33 +1,35 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-
-
 
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 
+
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-
-
-
-
-
-
 import javax.swing.JSlider;
+import javax.swing.JTextArea;
+import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+
 
 
 import lrc.mp3Demo;
@@ -38,8 +40,12 @@ public class playerViewer extends JFrame{
 	mp3Demo mD;
 	JPanel panel;
 	JPanel panelFile;
-	JPanel panelSlider;
+	JPanel panelTextArea;
+	JPanel coverPanel;
+	textContentPanel panelSlider;
 	JLabel lableFile;
+	
+	Image image ;
 	
 	private JSlider sliderSongLengthBar;
 	
@@ -60,10 +66,18 @@ public class playerViewer extends JFrame{
 	
 	public playerViewer(){
 		
-		setSize(300, 150);
-		initFileLayout();
-		initButtonLayout();
 		mD = new mp3Demo();
+		setSize(600, 280);
+		initFileLayout();
+		initSliderLayout();
+		
+		updateTextContent();
+		
+		initButtonLayout();
+		
+		
+		pack();
+		
 	/*	
 		JButton yellowButton = new JButton("Yellow");
 		JButton blueButton = new JButton("Blue");
@@ -90,16 +104,21 @@ public class playerViewer extends JFrame{
 		*/
 	}
 	
+	
 	private void initFileLayout() {
 		JButton buttonFile = new JButton("Files");
-		lableFile = new JLabel("");
+		lableFile = new JLabel("235");
 		panelFile = new JPanel();
 		panelFile.add(buttonFile);
 		panelFile.add(lableFile);
-		add(panelFile,BorderLayout.WEST);
+		add(panelFile,BorderLayout.NORTH);
 		BFileA = new buttonAction("Files");
 		buttonFile.addActionListener(BFileA);
 	
+
+	}
+	
+	private void initSliderLayout() {
 		// Add Slider Bar for user for dragging song's position
 		sliderSongLengthBar = new JSlider(0,100,0);
 		songBarAction = new sliderAction();
@@ -108,12 +127,40 @@ public class playerViewer extends JFrame{
 		// change variety of autoPlay
 		sMA = new sliderMouseAction();
 		sliderSongLengthBar.addMouseListener(sMA);
-		panelSlider = new JPanel();
-		panelSlider.add(sliderSongLengthBar);
+
+		panelFile.add(sliderSongLengthBar);
+	
+	}
+	
+	
+		
+		
+		
+		
+		
+
+	
+	public void updateTextContent(){
+			
+		//	JTextArea textLrc =new JTextArea(5,1);
+    	//	textLrc.setColumns(20);
+		JLabel jl =new JLabel("1234567890");
+		
+		panelSlider = new textContentPanel();
+			
+		panelSlider.setPreferredSize(new Dimension(200, 100) );
+	//	panelSlider.setLocation(new Point(0,50));
+		panelSlider.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.red, Color.black));
+	//	panelSlider.add(textLrc);
+		panelSlider.add(jl);
+		panelSlider.addMouseListener(sMA);
+		panelSlider.addMouseMotionListener(sMA);
 		add(panelSlider,BorderLayout.CENTER);
 
-		
-		
+		coverPanel = new JPanel();
+		coverPanel.setPreferredSize(new Dimension(200, 100) );
+	//	coverPanel.setOpaque(true);
+	//	add(coverPanel,BorderLayout.CENTER);
 	}
 	
 	public void initButtonLayout(){
@@ -209,20 +256,26 @@ public class playerViewer extends JFrame{
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			autoPlay = false;
+			//autoPlay = false;
+			panelSlider.setCoverText(false);
+			
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
 			
 			autoPlay = false;
+		//	panelSlider.rubber(e.getPoint());
 		}
 
 		@Override
-		public void mouseReleased(MouseEvent e) {
+		public void mouseDragged(MouseEvent e) {
 			
-			//autoPlay = false;
+			panelSlider.rubber(e.getPoint());
+		//	System.out.println("mouseMoved");
 		}
+		
+	
 
 		
 	}

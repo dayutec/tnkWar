@@ -43,7 +43,7 @@ public class mp3Demo {
 	
 	public String songName;
 	
-	public void readFile() {
+	public ArrayList<Code> readFile() {
 		File file = new File("C://Users//eyuuyee//Music//233212.lrc");
 		try {
 			fis = new FileInputStream(file);
@@ -56,6 +56,19 @@ public class mp3Demo {
 		
 		} catch (IOException e) {
 
+		}
+		
+		return lrc;
+	}
+	
+	public void parseLine(String line) {
+		Matcher matcher = pattern.matcher(line);
+		while (matcher.find()) {
+			String time = matcher.group();
+			String str = line.substring(line.indexOf(time) + time.length() + 1);
+			Code code = new Code(strToLong(time), str);
+			lrc.add(code);
+			System.out.println(code.getTime() + "/t" + code.getStr());
 		}
 	}
 
@@ -209,16 +222,7 @@ public void ResumeMp3() {
 		return songLength;
 	}
 	
-	public void parseLine(String line) {
-		Matcher matcher = pattern.matcher(line);
-		while (matcher.find()) {
-			String time = matcher.group();
-			String str = line.substring(line.indexOf(time) + time.length() + 1);
-			Code code = new Code(strToLong(time), str);
-			lrc.add(code);
-			// System.out.println(code.getTime() + "/t" + code.getStr());
-		}
-	}
+	
 /*
 	public static void main(String[] args) {
 
