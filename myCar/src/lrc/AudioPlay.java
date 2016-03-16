@@ -2,21 +2,29 @@ package lrc;
 
 
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 
-import java.io.File;
 
-import javax.media.Manager;
-import javax.media.Player;
+
 /**
  * @author naveen.k
  */
 public class AudioPlay {
-    static Player audioPlayer = null;
-    @SuppressWarnings("deprecation")
+		
+	public void init(){
+		String bip = "C://Users//eyuuyee//Music//0541.mp3";
+    	Media hit = new Media(bip);
+    	MediaPlayer mediaPlayer = new MediaPlayer(hit);
+    	mediaPlayer.play();
+	}
+
 	public static void main(String[] args) {
-        try {
-            Manager.createRealizedPlayer(new File("C://Users//eyuuyee//Music//0541.mp3").toURL()).start();
-        } catch (Exception ex) { ex.printStackTrace();  }
+
+		new AudioPlay().init();
+		
+		System.out.println("ssdf");
+       
     }
 }

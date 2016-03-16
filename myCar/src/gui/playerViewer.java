@@ -34,7 +34,7 @@ import javax.swing.event.ChangeListener;
 
 import lrc.mp3Demo;
 
-@SuppressWarnings("serial")
+
 public class playerViewer extends JFrame{
 	
 	mp3Demo mD;
@@ -149,18 +149,15 @@ public class playerViewer extends JFrame{
 		panelSlider = new textContentPanel();
 			
 		panelSlider.setPreferredSize(new Dimension(200, 100) );
-	//	panelSlider.setLocation(new Point(0,50));
+
 		panelSlider.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.red, Color.black));
-	//	panelSlider.add(textLrc);
+
 		panelSlider.add(jl);
 		panelSlider.addMouseListener(sMA);
 		panelSlider.addMouseMotionListener(sMA);
 		add(panelSlider,BorderLayout.CENTER);
 
-		coverPanel = new JPanel();
-		coverPanel.setPreferredSize(new Dimension(200, 100) );
-	//	coverPanel.setOpaque(true);
-	//	add(coverPanel,BorderLayout.CENTER);
+
 	}
 	
 	public void initButtonLayout(){
@@ -230,7 +227,6 @@ public class playerViewer extends JFrame{
 
 		
 
-		@Override
 		public void stateChanged(ChangeEvent e) {
 						
 			if(autoPlay)return;
@@ -289,7 +285,6 @@ public class playerViewer extends JFrame{
 			this.buttonTitle = buttonTitle;
 		}
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 					
 			switch(buttonTitle){

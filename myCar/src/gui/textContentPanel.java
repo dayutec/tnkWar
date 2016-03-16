@@ -42,9 +42,9 @@ public class textContentPanel extends JPanel {
 		g.setColor(Color.ORANGE);
 		g.drawString("The quick brown fox jumps over a lazy dog",30,50);
 		
-
+		//System.out.println(this.getWidth() );
 		//use bufferImage to handles eraser effect 
-		BufferedImage buffImg = new BufferedImage(200, 100, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage buffImg = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2I = buffImg.createGraphics();
 		
 		g2I.setColor(Color.BLUE);
@@ -82,6 +82,7 @@ public class textContentPanel extends JPanel {
 	public void rubber(Point p){
 		
 		//this.p=p;
+		
 		pointlist.add(p);
 
 	}
