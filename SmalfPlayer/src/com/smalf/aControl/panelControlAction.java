@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 
 
 
+
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
 import javax.swing.Timer;
@@ -14,6 +15,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import java.awt.event.ActionListener;
+import java.sql.Time;
 
 import com.smalf.aService.playService;
 import com.smalf.aUi.layerPlayPanel;
@@ -32,8 +34,9 @@ public class panelControlAction implements ActionListener , ChangeListener, Mous
 	    playService ps = new playService();
 	    layerPlayPanel lpp;
 	    
-	    Timer timer = new Timer(2000,this);
-	    
+	    Timer timer = new Timer(1000,this);
+		private int totalTime;
+		private int remainTime;
 		/*public panelControlAction(String buttonTitle){
 	    	
 			this.buttonTitle = buttonTitle;
@@ -67,6 +70,7 @@ public class panelControlAction implements ActionListener , ChangeListener, Mous
 									break;
 					case "Play"  :  ps.playAudio(null);
 									//updateSongBar();
+									initTimeLable();
 									System.out.println("Play"); 
 									timer.start();
 									break;
@@ -92,6 +96,8 @@ public class panelControlAction implements ActionListener , ChangeListener, Mous
 
 		           if (ps.getFISPosition() >= ps.getFISEnd()){
 		        	   layerPlayPanel.songProgressBar.setValue(1);
+		        	   remainTime =0;
+		        	   setTimeLable();
 		        	   timer.stop();
 		        	   return;
 		           }else{
@@ -99,6 +105,7 @@ public class panelControlAction implements ActionListener , ChangeListener, Mous
 		        	   double p = (double)ps.getFISPosition()/ps.getFISEnd();
 		        	   int t = (int) (10000*p);
 		        	   layerPlayPanel.songProgressBar.setValue(t);
+		        	   setTimeLable();
 		           }
 
 		        	  
@@ -114,7 +121,10 @@ public class panelControlAction implements ActionListener , ChangeListener, Mous
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
-			if(ps.getM_status()!=STOPPED && e.getSource() instanceof JProgressBar ){
+			if(ps.getM_status()==STOPPED || ps.getM_status()==UNKNOWN || !(e.getSource() instanceof JProgressBar) ){
+				return;
+			}			
+			else{
 				JProgressBar bar = (JProgressBar) e.getSource();
 				//get total length
 				int barLength = bar.getWidth();
@@ -127,10 +137,40 @@ public class panelControlAction implements ActionListener , ChangeListener, Mous
 				
 				ps.seekAudio(percent);
 				layerPlayPanel.songProgressBar.setValue((int) (10000*percent));
+				remainTime = (int) (totalTime*(1-percent));
+				setTimeLable();
 			}
 		}
 
 
+		public void setTimeLable(){
+			
+			
+			int l = remainTime--;
+			
+			int hh=l/3600;
+			int mm=l/60;
+			int ss=l%60;
+			Time t = new Time(hh,mm,ss);
+						
+			lpp.setTimeRemain(t.toString());
+	
+		}
+		
+		public void initTimeLable(){
+			
+			remainTime = totalTime = ps.getSongTotalTime();
+			int hh=totalTime/3600;
+			int mm=totalTime/60;
+			int ss=totalTime%60;
+			Time t = new Time(hh,mm,ss);
+			
+			
+			lpp.setTimeRemain(t.toString());
+			lpp.setTimeTotal(t.toString());
+		}
+		
+		
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub

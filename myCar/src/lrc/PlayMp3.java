@@ -32,6 +32,8 @@ public class PlayMp3 {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
 					fis));
 			String lrcString = null;
+			
+			 
 			while ((lrcString = reader.readLine()) != null)
 				parseLine(lrcString);
 		} catch (FileNotFoundException e) {

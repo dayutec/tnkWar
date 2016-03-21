@@ -2,6 +2,14 @@ package com.smalf.aService;
 
 
 import java.io.File;
+import java.sql.Time;
+
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+
+
+
+
 
 
 
@@ -17,6 +25,21 @@ public class playService {
 	private int fisAvaliable;
 	
 
+	public int getSongTotalTime(){
+		int duration = 0;
+
+		try {
+		  AudioFile audioFile = AudioFileIO.read(new File("C://Users//eyuuyee//Music//0541.mp3"));
+		  duration = audioFile.getAudioHeader().getTrackLength();
+		  System.out.println("time = " + duration);
+
+		} catch (Exception e) {
+		  e.printStackTrace();
+
+		}
+		
+		return duration;
+	}
 
 	public int getM_status() {
 		return Bplayer.getStatus();
@@ -118,6 +141,22 @@ public class playService {
 			} catch (BasicPlayerException e) {}
 			}
 	}
+	
+	public void seekAudio(int precent) {
+			
+			
+		    System.out.println(precent);
+		
+			if(Bplayer != null){
+				
+				
+				long bytes =  (long) (precent * songTotalByteLength);	
+				try {
+					Bplayer.seek(bytes);
+				
+				} catch (BasicPlayerException e) {}
+				}
+		}
 	
 	
 	

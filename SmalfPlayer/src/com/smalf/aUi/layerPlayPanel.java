@@ -6,15 +6,17 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 
+
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
 import javax.swing.table.DefaultTableModel;
 
 import com.smalf.aControl.panelControlAction;
@@ -26,9 +28,26 @@ public class layerPlayPanel {
 	private static JPanel middlePanel;
 	private static JPanel bottomPanel;
 	public static JProgressBar songProgressBar;
-  
+  	private  JLabel timeRemain;
+  	private  JLabel timeTotal;
+  	
+
+  	
+  	public void setTimeRemain(String time) {
+		timeRemain.setText(time);
+	}
+
+
+	public void setTimeTotal(String time) {
+		timeTotal.setText(time);
+	}
+
+
+
+
     
 	private panelControlAction pca = new panelControlAction(this);
+
 
 	static void createTopPanel() { 
 		 topPanel = new JPanel(); 
@@ -59,7 +78,19 @@ public class layerPlayPanel {
 		 middlePanel = new JPanel(); 
 		 // 采用水平布局
 		 middlePanel .setLayout(new BoxLayout(middlePanel,BoxLayout.Y_AXIS )); 
-		 
+		// 创建包含两个按钮的 buttonPanel 	
+		 JPanel lablePanel = new JPanel(); 
+		// 设置 bottomPanel 为水平布局
+		 lablePanel.setLayout(new BoxLayout(lablePanel, BoxLayout.X_AXIS )); 
+		//Add two Lable
+		 timeRemain = new JLabel("00:00:00");
+		 timeTotal = new JLabel("00:00:00");
+		 lablePanel.add(timeRemain);
+		//加入一个 glue, glue 会挤占两个按钮之间的空间
+		 lablePanel.add(Box.createHorizontalGlue ());
+		 lablePanel.add(timeTotal);
+		 middlePanel.add(lablePanel);
+		// 将查询按钮加入到 buttonPanel 
 		//ProgressBar of song 			
 		 songProgressBar  = new JProgressBar(0,10000);
 		 //Add MouseListener

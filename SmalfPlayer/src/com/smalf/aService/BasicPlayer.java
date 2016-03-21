@@ -318,6 +318,7 @@ public class BasicPlayer implements BasicController, Runnable
     {
         m_audioInputStream = AudioSystem.getAudioInputStream(file);
         m_audioFileFormat = AudioSystem.getAudioFileFormat(file);
+        
     }
 
     /**
