@@ -3,8 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Point;
@@ -18,9 +16,6 @@ import java.awt.event.MouseEvent;
 
 
 
-
-
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,7 +25,6 @@ import javax.swing.JPanel;
 
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -38,13 +32,10 @@ import javax.swing.event.ChangeListener;
 
 
 
-
-
-
 import lrc.mp3Demo;
 
 
-public class playerViewer extends JFrame{
+public class writeViewer extends JFrame{
 	
 	mp3Demo mD;
 	JPanel panel;
@@ -73,44 +64,21 @@ public class playerViewer extends JFrame{
 //	private boolean isMouseReleased = true;
 	
 	
-	public playerViewer(){
+	public writeViewer(){
 		
 		mD = new mp3Demo();
 		setSize(600, 280);
 		initFileLayout();
 		initSliderLayout();
 		
-	//	updateTextContent();
-		inputTextContent();
+		updateTextContent();
+		
 		initButtonLayout();
 		
-	//	sd() ;
+		
 		pack();
 		
-	/*	
-		JButton yellowButton = new JButton("Yellow");
-		JButton blueButton = new JButton("Blue");
-		JButton redButton = new JButton("Red");
-		
-		buttonPanel = new JPanel();
-		
-		buttonPanel.add(yellowButton);
-		buttonPanel.add(blueButton);
-		buttonPanel.add(redButton);
-		
-		
-		
-		add(buttonPanel);
-		
-		ColorAction yellowAction =new ColorAction(Color.YELLOW);
-		ColorAction blueAction =new ColorAction(Color.BLUE);
-		ColorAction redAction =new ColorAction(Color.RED);
-		
-		yellowButton.addActionListener(yellowAction);
-		blueButton.addActionListener(blueAction);
-		redButton.addActionListener(redAction);
-		
-		*/
+
 	}
 	
 	
@@ -145,50 +113,7 @@ public class playerViewer extends JFrame{
 		
 		
 		
-	public void inputTextContent(){
 		
-
-		JPanel panelText = new JPanel();
-		panelText.setLayout(null);
-		panelText.setPreferredSize(new Dimension(200, 100) );
-		panelText.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.red, Color.black));
-//		panelText.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-	
-		JTextField jtf1;		
-        jtf1 = new JTextField("1234567890");  
- 
-    //    jtf1.setBorder(null);     //Ïû³ý±ß½ç
-        jtf1.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.ORANGE)); //only bottom has border. 
-        jtf1.setOpaque(false);   //Í¸Ã÷
-        Dimension size = jtf1.getPreferredSize();
-        jtf1.setBounds(100, 100, size.width, size.height);
-        jtf1.setLocation(50, 50);
-        
-        panelText.add(jtf1);
-        
-        
-        
-        String[] strt =   stringSplit("dfdg gdsg , gdga, dg.gadg.");    
-        String s="";
-        int index =0;
-        for(String string:strt){
-        	s=string+" "+s;
-        	jtf1.setText(s);
- 		  }
-        this.add(panelText,BorderLayout.CENTER);
-	}
-	
-	
-	public String[] stringSplit (String path ){
-		
-		String[] strs=path.split("[,.?! ]");
-		  for(String string:strs){
-		   System.out.println(string);
-		  }
-		  
-		  return strs;
-	}
-	
 		
 
 	
@@ -197,13 +122,12 @@ public class playerViewer extends JFrame{
 		//	JTextArea textLrc =new JTextArea(5,1);
     	//	textLrc.setColumns(20);
 		JLabel jl =new JLabel("1234567890");
-	
 		
-		//a quick brown fox jumps over a lazy dog
-		panelSlider = new textContentPanel();			
+		panelSlider = new textContentPanel();
+			
 		panelSlider.setPreferredSize(new Dimension(200, 100) );
-		panelSlider.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.red, Color.black));
 
+		panelSlider.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.red, Color.black));
 
 		panelSlider.add(jl);
 		panelSlider.addMouseListener(sMA);
@@ -392,25 +316,7 @@ public class playerViewer extends JFrame{
 	}
 	*/
 
-
-		  public  void sd() {
-		//    JFrame frame = new JFrame();
-		//    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		    JPanel panelxx = new JPanel();
-		    panelxx.setLayout(null);
-		    panelxx.setPreferredSize(new Dimension(200, 100) );
-		    JLabel label = new JLabel("aaa");
-		    panelxx.add(label);
-		    Dimension size = label.getPreferredSize();
-		    label.setBounds(100, 100, size.width, size.height);
-		    
-		    label.setLocation(150, 50);
-	//	    frame.setSize(300, 200);
-	//	    frame.setVisible(true);
-		    this.add(panelxx,BorderLayout.CENTER);
-		  }
-		
+	
 
 	
 

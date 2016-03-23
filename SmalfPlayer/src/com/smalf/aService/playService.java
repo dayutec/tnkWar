@@ -14,9 +14,17 @@ import org.jaudiotagger.audio.AudioFileIO;
 
 
 
+/**
+ * @author eyuuyee
+ *
+ */
+/**
+ * @author eyuuyee
+ *
+ */
 public class playService {
 	
-	public static String FilePath = "C://Users//eyuuyee//Music//0541.mp3";
+	public static String FilePath = "C://Users//eyuuyee//Music//664.mp3";
 
 	BasicPlayer Bplayer; 
 	File file = new File(FilePath);
@@ -29,7 +37,7 @@ public class playService {
 		int duration = 0;
 
 		try {
-		  AudioFile audioFile = AudioFileIO.read(new File("C://Users//eyuuyee//Music//0541.mp3"));
+		  AudioFile audioFile = AudioFileIO.read(new File(FilePath));
 		  duration = audioFile.getAudioHeader().getTrackLength();
 		  System.out.println("time = " + duration);
 
@@ -69,7 +77,7 @@ public class playService {
 		System.out.println("----------play music----------");
 		String path = song ; 
 		if(path == null) {
-			path = "C://Users//eyuuyee//Music//0541.mp3";
+			path = FilePath;
 			file = new File(path);
 		}
 		try {
@@ -142,7 +150,7 @@ public class playService {
 			}
 	}
 	
-	public void seekAudio(int precent) {
+/*	public void seekAudio(int precent) {
 			
 			
 		    System.out.println(precent);
@@ -156,7 +164,7 @@ public class playService {
 				
 				} catch (BasicPlayerException e) {}
 				}
-		}
+		}*/
 	
 	
 	
