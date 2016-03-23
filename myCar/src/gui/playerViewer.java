@@ -21,6 +21,12 @@ import java.awt.event.MouseEvent;
 
 
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,6 +40,11 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+
+
+
+
 
 
 
@@ -162,18 +173,111 @@ public class playerViewer extends JFrame{
         jtf1.setOpaque(false);   //Í¸Ã÷
         Dimension size = jtf1.getPreferredSize();
         jtf1.setBounds(100, 100, size.width, size.height);
-        jtf1.setLocation(50, 50);
+        jtf1.setLocation(100,100);
+        
         
         panelText.add(jtf1);
         
         
         
-        String[] strt =   stringSplit("dfdg gdsg , gdga, dg.gadg.");    
+        String[] strt =   stringSplit("dfdg gdsg,gdga,dg.gadg.dagdgdg,3454sdgf,dsgsferyrwe.");    
         String s="";
         int index =0;
+
+        List<JLabel> subJlbSet = new ArrayList<JLabel>();
+        List<JTextField> jtfSet = new ArrayList<JTextField>();
+        
+        List<JLabel> jlbSet = new ArrayList<JLabel>();
+
+        int xPosition =50;
+        int yPosition =50;
+        Set<Integer> set=new HashSet<Integer>();
+		while(true){
+			set.add((int)(Math.random()*strt.length));
+			if(set.size()==3)
+				break;
+		}
+		System.out.println(set);
+		System.out.println(strt.length);
+
+        
+		//Initial JLabelset
         for(String string:strt){
-        	s=string+" "+s;
-        	jtf1.setText(s);
+ //        	s=string+" "+s;
+//        	jtf1.setText(s);      
+        	JLabel jl = new JLabel(string);
+        	jlbSet.add(jl);
+        }
+        
+        //dig Label's context
+        Iterator<Integer> iterator=set.iterator();
+        while(iterator.hasNext()){
+        	int k = iterator.next();
+        	subJlbSet.add(new JLabel(jlbSet.get(k).getText()));
+        	
+        	jtfSet.add(new JTextField());
+        	jlbSet.get(k).setText(null);
+        }
+        
+        
+        int subIndex=0;
+        for(int i=0; i < jlbSet.size() ;i++){
+        
+        
+        	Dimension sizeJL =null;
+        	if(jlbSet.get(i).getText()!=null){
+        		
+
+        		sizeJL = jlbSet.get(i).getPreferredSize();
+        		jlbSet.get(i).setBounds(xPosition, yPosition, sizeJL.width, sizeJL.height);
+        		panelText.add(jlbSet.get(i));
+        		xPosition = xPosition +  sizeJL.width +5;
+        	}
+        	else{
+        		
+        		sizeJL = subJlbSet.get(subIndex).getPreferredSize();
+        	//	subJlbSet.get(index).setBounds(xPosition, yPosition, sizeJL.width, sizeJL.height);
+        		
+        		jtfSet.get(subIndex).setBounds(xPosition, yPosition, sizeJL.width, sizeJL.height);
+        		jtfSet.get(subIndex).setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.ORANGE));
+        		jtfSet.get(subIndex).setOpaque(false);   //Í¸Ã÷
+        		panelText.add(jtfSet.get(subIndex));
+        		
+        		subIndex ++;
+        		xPosition = xPosition +  sizeJL.width +5;
+        	}
+        	if(xPosition > 200){
+        		yPosition += sizeJL.height; 
+        		xPosition =50;
+        		}
+     
+        	
+        	/*
+        	Dimension sizeJL = jl.getPreferredSize();
+        	
+        	JTextField jt = new JTextField();
+        	jtfSet.add(jt);
+        	
+        	
+        	
+        	
+        	if(set.contains(index)){
+        		
+        		jtfSet.get(index).setBounds(xposition, 50, sizeJL.width, sizeJL.height);
+        		jtfSet.get(index).setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.ORANGE));
+        		jtfSet.get(index).setOpaque(false);   //Í¸Ã÷
+        		panelText.add(jtfSet.get(index));
+        		
+        	}
+        	else
+        	{
+        		        		
+        		jlbSet.get(index).setBounds(xposition, 50, sizeJL.width, sizeJL.height);
+        		panelText.add(jlbSet.get(index));
+        	}
+        	index++;
+        	xposition = xposition +  sizeJL.width +5;
+        	 */
  		  }
         this.add(panelText,BorderLayout.CENTER);
 	}
