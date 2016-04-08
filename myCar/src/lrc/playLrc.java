@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,8 +27,8 @@ public class playLrc {
 	private static final String fileUrlLrc = "C://Users//eyuuyee//Music//233212.lrc";
 	private static final String fileUrlWave = "C://Users//eyuuyee//Music//0541.mp3";
 	
-	private final Pattern pattern = Pattern.compile("(?<=//[).*?(?=//])"); 
-	private ArrayList<Code> lrc = new ArrayList<Code>();
+	private final Pattern pattern = Pattern.compile("(\\[\\d{2}+\\:\\d{2}\\.\\d{2}\\])(.*)"); 
+	private static List<Code> lrc = new ArrayList<Code>();
 	private AudioInputStream inputStream;
 	private AudioFormat fileFormat;
 	private SourceDataLine dataLine;
@@ -59,8 +60,8 @@ public class playLrc {
 		// TODO Auto-generated method stub
 		Matcher matcher = pattern.matcher(line);
 		while(matcher.find()){
-			String time = matcher.group();
-			String str = line.substring(line.indexOf(time)+ time.length() +1);
+			String time = matcher.group(1);
+			String str = matcher.group(2);
 			Code code  = new Code(strToLong(time),str);
 			lrc.add(code);
 		}
@@ -69,10 +70,10 @@ public class playLrc {
 
 	private long strToLong(String timeStr) {
 		// TODO Auto-generated method stub
-				
+		timeStr = timeStr.trim().substring(1, timeStr.length()-1 )	;
 		String[] s =timeStr.split(":");
 		int min=Integer.parseInt(s[0]);
-		String[] ss = s[1].split("//.");  
+		String[] ss = s[1].split("\\.");  
 	    int sec = Integer.parseInt(ss[0]);
 	    int mill = Integer.parseInt(ss[1]);  
         return min * 60 * 1000 + sec * 1000 + mill * 10; 
@@ -155,7 +156,8 @@ public class playLrc {
 	        // TODO Auto-generated method stub  
 	        playLrc playLrc = new playLrc();  
 	        playLrc.readFile();  
-	        playLrc.readMP3();  
+	    //    playLrc.readMP3();  
+	        System.out.println(lrc);
 	    }  
 
 	class Code{

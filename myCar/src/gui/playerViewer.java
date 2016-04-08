@@ -52,6 +52,10 @@ import javax.swing.event.ChangeListener;
 
 
 
+import javax.swing.event.DocumentEvent;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+
 import lrc.mp3Demo;
 
 
@@ -180,11 +184,11 @@ public class playerViewer extends JFrame{
         
         
         
-        String[] strt =   stringSplit("dfdg gdsg,gdga,dg.gadg.dagdgdg,3454sdgf,dsgsferyrwe.");    
+        String[] strt =   stringSplit("dfdg gdsg,gdga,dg.gadg.dagdgdg,3454sdgf,dfdgdgdsa,deretyyuu,dsgsferyrwe.");    
         String s="";
         int index =0;
 
-        List<JLabel> subJlbSet = new ArrayList<JLabel>();
+        final List<JLabel> subJlbSet = new ArrayList<JLabel>();
         List<JTextField> jtfSet = new ArrayList<JTextField>();
         
         List<JLabel> jlbSet = new ArrayList<JLabel>();
@@ -211,11 +215,46 @@ public class playerViewer extends JFrame{
         
         //dig Label's context
         Iterator<Integer> iterator=set.iterator();
+        int setIndex=0;
         while(iterator.hasNext()){
         	int k = iterator.next();
-        	subJlbSet.add(new JLabel(jlbSet.get(k).getText()));
         	
-        	jtfSet.add(new JTextField());
+        	subJlbSet.add(new JLabel(jlbSet.get(k).getText())); // Init 
+        	
+        	final JTextField jt = new JTextField();
+        	jt.setName(setIndex+"");
+        	setIndex++;
+        	final Document dt = jt.getDocument();
+        	   dt.addDocumentListener(new  javax.swing.event.DocumentListener(){
+                   
+                   public void changedUpdate(DocumentEvent documentEvent)   {
+                      System.out.println("changed:");
+                  }
+
+                  public void insertUpdate(DocumentEvent documentEvent)   {
+                      System.out.println("insert" +dt.getLength());
+                      int index = Integer.parseInt(jt.getName());
+                      String s = null;
+					try {
+						s = dt.getText(0,dt.getLength());
+					} catch (BadLocationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                      String t= subJlbSet.get(index).getText().substring(0, dt.getLength());
+                      if(s.equals(t))
+                      jt.setForeground(Color.GREEN);
+                      else
+                      jt.setForeground(Color.RED); 
+                  }
+
+                  public void removeUpdate(DocumentEvent documentEvent)   {
+                     System.out.println("remove");
+                     jt.setForeground(Color.BLACK);
+                  }
+                              
+      });
+        	jtfSet.add(jt);
         	jlbSet.get(k).setText(null);
         }
         
@@ -293,7 +332,9 @@ public class playerViewer extends JFrame{
 		  return strs;
 	}
 	
-		
+	
+	
+	
 
 	
 	public void updateTextContent(){
