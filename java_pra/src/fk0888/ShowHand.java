@@ -69,7 +69,7 @@ public class ShowHand {
 	public void deliveryCard(String first)
 	{
 		
-		int firstPos = ArrayUtils.search(players,first);
+		int firstPos =10;// ArrayUtils.search(players,first);
 		for(int i= firstPos ; i < PLAY_NUM ;i++)
 		{
 			if(players[i]!= null)
